@@ -1,0 +1,40 @@
+extends layout/index.pug
+
+block head
+  script.
+    if( process.env.NODE_ENV == 'dev'){
+      var stylus = require('stylus')
+      var str    = require('fs').readFileSync(__dirname + '/../stylus/index.styl', 'utf8')
+      stylus(str)
+        .set('filename', __dirname + '/../stylus/index.styl', 'utf8')
+        .render(function(err, css){
+          if (err) throw err
+            var style = document.createElement('style')
+            style.innerText = css
+            style.type = 'text/css'
+            document.head.appendChild(style)
+        })
+    }else{
+      var str  = require('fs').readFileSync(__dirname + './../css/index.css', 'utf8')
+      var style = document.createElement('style')
+      style.innerText = str
+      style.type = 'text/css'
+      document.head.appendChild(style)
+    }
+  script(src="./../js/tabToggle.js")
+  //if NODE_ENV == 'dev'
+  //  script(src="./../js/tabToggle.js")
+  //else
+  //  script(src="./resources/app/js/tabToggle.js")
+block body
+  table
+    tbody
+      tr
+        td
+          div.panToggle#leftPan: div
+          div.content
+            include layout/left.pug
+        td
+          div.panToggle#rightPan: div
+          div.content
+            include layout/right.pug

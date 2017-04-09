@@ -1,0 +1,30 @@
+script(src="../js/userConfig.js")
+
+
+p Перед использованием программы, для быстродействия, необходимо конвертировать xlsx базу 
+
+p(style="background-color:#fff7eb") <b>*</b> Совет: Перед конвентированием xlsx, форматируйте в екселе дату как текст
+p загрузить базу
+button#sel_dataXlsx указать базу xlsx
+input(type="text" placeholder="новое имя базы")#nameJsonBase
+button#convertXlsxToJson конвертировать и сохранить
+
+p удалить указаную базу
+select.baseListUi
+button#removeJson удалить
+
+hr
+
+p загрузить конфигурацию
+select.usConfUi
+button#loadConfig загрузить
+
+p.
+  сохранить конфигурацию <br>
+  сохраняет заполненые вами поля
+input(type="text" placeholder="имя конфигурации")#nameConfig
+button#saveConfig сохранить
+
+p удалить конфигурацию
+select.usConfUi
+button#removeConfig удалить

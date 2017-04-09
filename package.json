@@ -1,0 +1,32 @@
+{
+  "name": "crfet",
+  "version": "1.0.0",
+  "description": "Copying and renaming files from Excel table",
+  "main": "main.js",
+  "scripts": {
+    "start": "set NODE_ENV=dev&& electron .",
+    "packager": "electron-packager .",
+    "gulp": "gulp build"
+  },
+  "repository": "https://github.com/sergProduction/",
+  "keywords": [
+    "demo"
+  ],
+  "author": "sergProduction",
+  "license": "MIT",
+  "dependencies":{
+    "babyparse": "^0.4.6",
+    "exceljs": "^0.4.2",
+    "lodash": "^4.17.4",
+    "recursive-copy": "^2.0.6"
+  },
+  "devDependencies": {
+    "electron": "~1.6.2",
+    "electron-packager": "^8.6.0",
+    "electron-reload": "^1.1.0",
+    "gulp": "^3.9.1",
+    "gulp-pug": "^3.3.0",
+    "gulp-stylus": "^2.6.0",
+    "stylus": "^0.54.5"
+  }
+}

@@ -1,0 +1,77 @@
+body {
+  font-family: sans-serif;
+  font-size: 12px;
+}
+.panToggle {
+  background-color: #f0f8ff;
+  width: 100%;
+  height: 20px;
+  margin: 0 0 10px 0;
+}
+.panToggle div {
+  width: 0;
+  height: 0;
+  border: 10px solid transparent;
+  margin: auto;
+}
+.panToggle div.arrow-right {
+  border-right-color: #b7b7b7;
+  border-left: 0;
+}
+.panToggle div.arrow-left {
+  border-left-color: #b7b7b7;
+  border-right: 0;
+}
+.userPath button {
+  margin: 0 10px 0 0;
+}
+table {
+  border: 0;
+  border-spacing: 0;
+}
+table td {
+  padding: 0 5px;
+  vertical-align: top;
+  transition: all 0.5s ease;
+}
+table td:nth-child(odd) {
+  width: 50%;
+}
+table td:nth-child(even) {
+  width: 50%;
+  border-left: 1px solid #000;
+}
+select {
+  margin: 0 5px;
+}
+input[type="text"] {
+  font-family: monospace;
+  width: 120px;
+  margin: 0 5px;
+}
+.mainDescript {
+  height: 40px;
+  overflow: hidden;
+  background-color: #fff7eb;
+}
+.descript {
+  margin: 10px 0;
+}
+h4 {
+  margin: 5px 0;
+}
+ul {
+  padding: 0 0 0 20px;
+}
+li {
+  list-style-type: none;
+}
+li:before {
+  content: "\2012";
+  margin-left: -20px;
+  padding-right: 12px;
+}
+q {
+  background-color: #f0f8ff;
+  font-family: monospace;
+}
