@@ -10,6 +10,11 @@ let userPath = {}
 let buttonSourceDirectory
 let buttonXlsxDirectory
 let buttontargetDirectory
+let buttonSourceLog
+let buttonTargetLog
+let buttonCopySuccess
+let buttonCopyNot
+
 
 let dash         
 let xlsx          
@@ -36,6 +41,12 @@ window.addEventListener('load', ()=> {
   buttonXlsxDirectory.addEventListener('click', xlsxDirectorySelect)
   buttonTargetDirectory.addEventListener('click', targetDirectorySelect)
 
+  buttonSourceLog.addEventListener('click', sourceLog)
+  buttonTargetLog.addEventListener('click', targetLog)
+
+  buttonCopySuccess.addEventListener('click', copySuccess)
+  buttonCopyNot.addEventListener('click', copyNot)
+
   getName('xlsx').addEventListener('click', (e)=>{
     let toggle = e.target.checked ? '' : 'none'
     getName('splitXlsx').parentElement.style.display = toggle
@@ -57,6 +68,11 @@ function initVariable(){
   buttonSourceDirectory   = document.getElementById("sourceDirectory")
   buttonXlsxDirectory     = document.getElementById("xlsxDirectory")
   buttonTargetDirectory   = document.getElementById("targetDirectory")
+
+  buttonSourceLog = document.getElementById('sourceLog')
+  buttonTargetLog = document.getElementById('targetLog')
+  buttonCopySuccess = document.getElementById('copySuccess')
+  buttonCopyNot = document.getElementById('copyNot')
 
   xlsx          = getName('xlsx').checked
   dirInDir      = getName('dirInDir').checked
@@ -93,6 +109,23 @@ function targetDirectorySelect(){
   //oldBaseAndPathList()
 }
 
+function sourceLog(){
+  let logPath = dialog.showOpenDialog({properties: ['openFile'], defaultPath: path.join(__dirname, './../logIs') })
+  if( !logPath ) return false
+  logPath = path.normalize(logPath[0])
+  userPath.logPathSource = logPath
+  //console.log(logPath)
+}
+
+function targetLog(){
+  let logPath = dialog.showSaveDialog({defaultPath: path.normalize('C:/Users/')}, filename => {
+    if(!filename)
+      return
+    logPath = path.normalize(filename)
+    userPath.logPathTarget = logPath
+  })
+}
+
 function start(){
   let baseName = document.getElementsByClassName('baseListUi')[0].value
 
@@ -115,6 +148,7 @@ function start(){
   let copyAndRaname = fork(path.join(__dirname, './../js/runEqual.js'), [], {silent:true})
 
   copyAndRaname.send(data)
+
   let loading = preloader.load()
   loading.image(true)
 
@@ -151,6 +185,91 @@ function start(){
     console.info(err.toString())
   })
 
+}
+
+function copySuccess(){
+  let copyCreateLog = fork(path.join(__dirname, './../js/copyCreateLog.js'), [], {silent:true})
+  
+  copyCreateLog.send({type:'success', userPath})
+
+  let loading = preloader.load()
+  loading.image(true)
+
+  copyCreateLog.on('message', data => {
+    switch(data){
+      case 'read base':
+        loading.text('Чтение базы')
+      break
+      case 'read log':
+        loading.text('Чтение лога')
+      break
+      case 'comput':
+        loading.text('Вычесление')
+      break
+      case 'convert csv':
+        loading.text('Конвертирование')
+      break
+      case 'save':
+        loading.text('Сохранение')
+      break
+      case 'finish':
+        loading.text('Готово')
+        preloader.complite()
+        copyCreateLog.kill()
+      break
+    }
+  })
+  copyCreateLog.stderr.on('data', err => {
+    loading.error('Ошибка. Проверте правильность введенных данных')
+    copyCreateLog.kill();
+    console.error(err.toString())
+  })
+  copyCreateLog.stdout.on('data', err => {
+    console.info(err.toString())
+  })
+
+}
+
+function copyNot(){
+  let copyCreateLog = fork(path.join(__dirname, './../js/copyCreateLog.js'), [], {silent:true})
+  
+  copyCreateLog.send({type:'not', userPath})
+
+  let loading = preloader.load()
+  loading.image(true)
+
+  copyCreateLog.on('message', data => {
+    switch(data){
+      case 'read base':
+        loading.text('Чтение базы')
+      break
+      case 'read log':
+        loading.text('Чтение лога')
+      break
+      case 'comput':
+        loading.text('Вычесление')
+      break
+      case 'convert csv':
+        loading.text('Конвертирование')
+      break
+      case 'save':
+        loading.text('Сохранение')
+      break
+      case 'finish':
+        loading.text('Готово')
+        preloader.complite()
+        copyCreateLog.kill()
+      break
+    }
+  })
+  copyCreateLog.stderr.on('data', err => {
+    loading.error('Ошибка. Проверте правильность введенных данных')
+    copyCreateLog.kill();
+    console.error(err.toString())
+  })
+  copyCreateLog.stdout.on('data', err => {
+    console.info(err.toString())
+  })
 }
 
 })()

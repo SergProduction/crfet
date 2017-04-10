@@ -121,10 +121,10 @@ function* generatorXlsxInBase(xl, file){
     for(let row of base){
       let modDirFile = splitDirFile(file.file, args.splitFile, file.dir, args.splitDir)
       modDirFile.file = rowXl
-      let usTrue = userEqual(row, args.splitBase, modDirFile, args.equalBaseFile, args.equalBaseDir)
+      let usTrue = userEqual(row.slice(), args.splitBase, modDirFile, args.equalBaseFile, args.equalBaseDir)
       if(usTrue){
-        newName.file = newNameSplit(row, file.file, args.endFile),
-        newName.dir  = newNameSplit(row, file.dir , args.endDir )
+        newName.file = newNameSplit(row.slice(), file.file, args.endFile),
+        newName.dir  = newNameSplit(row.slice(), file.dir , args.endDir )
         
         if(!count){
           startName = newName.file
@@ -273,11 +273,11 @@ function* generatorBase(file){
     
     for(let row of base){
       let modDirFile = splitDirFile(file.file, args.splitFile, file.dir, args.splitDir)
-      let usTrue = userEqual(row, args.splitBase, modDirFile, args.equalBaseFile, args.equalBaseDir)
+      let usTrue = userEqual(row.slice(), args.splitBase, modDirFile, args.equalBaseFile, args.equalBaseDir)
       if(usTrue){
         
-        newName.file = newNameSplit(row, file.file, args.endFile),
-        newName.dir  = newNameSplit(row, file.dir , args.endDir )
+        newName.file = newNameSplit(row.slice(), file.file, args.endFile),
+        newName.dir  = newNameSplit(row.slice(), file.dir , args.endDir )
         
         if(!count){
           startName = newName.file

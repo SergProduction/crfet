@@ -229,8 +229,8 @@ function saveConfig(){
     if (err) throw err;
     console.log('The file has been saved!');
     preload.complite()
+    updateConfigListUi()
   })
-
 }
 
 function loadConfig(){
